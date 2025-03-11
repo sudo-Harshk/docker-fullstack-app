@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./backend
+    restart: always  # Ensures the container restarts if it crashes
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+    - DATABASE_URL=${DATABASE_URL}
+    command: gunicorn --bind 0.0.0.0:8000 app:app  # Use Gunicorn for production
+
+  db:
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  frontend:
+    build: ./frontend
+    restart: always
+    ports:
+      - "3000:80"  # Serve React on port 80 via Nginx
+    depends_on:
+      - backend
+
+volumes:
+  postgres-data:
