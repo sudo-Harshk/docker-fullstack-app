@@ -3,7 +3,7 @@ name: Build and Push to GHCR
 on:
   push:
     branches:
-      - main  
+      - main
 
 jobs:
   build_and_push:
@@ -18,10 +18,10 @@ jobs:
 
     - name: Build and Push Backend Image
       run: |
-        docker build -t ghcr.io/${{ github.actor }}/flask-backend:latest ./backend
-        docker push ghcr.io/${{ github.actor }}/flask-backend:latest
+        docker build -t ghcr.io/sudo-harshk/flask-backend:latest ./backend
+        docker push ghcr.io/sudo-harshk/flask-backend:latest
 
     - name: Build and Push Frontend Image
       run: |
-        docker build -t ghcr.io/${{ github.actor }}/react-frontend:latest ./frontend
-        docker push ghcr.io/${{ github.actor }}/react-frontend:latest
+        docker build -t ghcr.io/sudo-harshk/react-frontend:latest ./frontend
+        docker push ghcr.io/sudo-harshk/react-frontend:latest
